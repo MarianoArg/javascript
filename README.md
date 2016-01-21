@@ -1447,29 +1447,29 @@
     }
     ```
 
-  - [17.3](#17.3) <a name='17.3'></a> Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
+  - [17.3](#17.3) <a name='17.3'></a> Prefixing your comments with `@FIXME` or `@TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `@FIXME -- need to figure this out` or `@TODO -- need to implement`.
 
-  - [17.4](#17.4) <a name='17.4'></a> Use `// FIXME:` to annotate problems.
+  - [17.4](#17.4) <a name='17.4'></a> Use `// @FIXME:` to annotate problems.
 
     ```javascript
     class Calculator extends Abacus {
       constructor() {
         super();
 
-        // FIXME: shouldn't use a global here
+        // @FIXME: shouldn't use a global here
         total = 0;
       }
     }
     ```
 
-  - [17.5](#17.5) <a name='17.5'></a> Use `// TODO:` to annotate solutions to problems.
+  - [17.5](#17.5) <a name='17.5'></a> Use `// @TODO:` to annotate solutions to problems.
 
     ```javascript
     class Calculator extends Abacus {
       constructor() {
         super();
 
-        // TODO: total should be configurable by an options param
+        // @TODO: total should be configurable by an options param
         this.total = 0;
       }
     }
@@ -1961,7 +1961,7 @@
     const totalScore = String(this.reviewScore);
     ```
 
-  - [21.3](#21.3) <a name='21.3'></a> Numbers: Use `Number` for type casting and `parseInt` always with a radix for parsing strings.
+  - [21.3](#21.3) <a name='21.3'></a> Numbers: Favor `parseInt` over `Number` and always provide a radix.
 
     eslint rules: [`radix`](http://eslint.org/docs/rules/radix).
 
@@ -1980,7 +1980,7 @@
     // bad
     const val = parseInt(inputValue);
 
-    // good
+    // bad
     const val = Number(inputValue);
 
     // good
@@ -2007,7 +2007,7 @@
     2147483649 >> 0 //=> -2147483647
     ```
 
-  - [21.6](#21.6) <a name='21.6'></a> Booleans:
+  - [21.6](#21.6) <a name='21.6'></a> Booleans: Always use double negation to cast a boolean.
 
     ```javascript
     const age = 0;
@@ -2015,7 +2015,7 @@
     // bad
     const hasAge = new Boolean(age);
 
-    // good
+    // bad
     const hasAge = Boolean(age);
 
     // good
@@ -2130,7 +2130,7 @@
     }
     ```
 
-  - [22.6](#22.6) <a name='22.6'></a> If your file exports a single class, your filename should be exactly the name of the class.
+  - [22.6](#22.6) <a name='22.6'></a> If your file exports a single class, your filename should be an underscored version of the class.
 
     ```javascript
     // file contents
@@ -2144,10 +2144,10 @@
     import CheckBox from './checkBox';
 
     // bad
-    import CheckBox from './check_box';
+    import CheckBox from './CheckBox';
 
     // good
-    import CheckBox from './CheckBox';
+    import CheckBox from './check_box';
     ```
 
   - [22.7](#22.7) <a name='22.7'></a> Use camelCase when you export-default a function. Your filename should be identical to your function's name.
@@ -2177,53 +2177,28 @@
 ## Accessors
 
   - [23.1](#23.1) <a name='23.1'></a> Accessor functions for properties are not required.
-  - [23.2](#23.2) <a name='23.2'></a> If you do make accessor functions use getVal() and setVal('hello').
 
-    ```javascript
-    // bad
-    dragon.age();
-
-    // good
-    dragon.getAge();
-
-    // bad
-    dragon.age(25);
-
-    // good
-    dragon.setAge(25);
-    ```
-
-  - [23.3](#23.3) <a name='23.3'></a> If the property is a `boolean`, use `isVal()` or `hasVal()`.
-
-    ```javascript
-    // bad
-    if (!dragon.age()) {
-      return false;
-    }
-
-    // good
-    if (!dragon.hasAge()) {
-      return false;
-    }
-    ```
-
-  - [23.4](#23.4) <a name='23.4'></a> It's okay to create get() and set() functions, but be consistent.
+  - [23.2](#23.2) <a name='23.4'></a> Use ES6 Getters and Setters when necessary.
 
     ```javascript
     class Jedi {
       constructor(options = {}) {
-        const lightsaber = options.lightsaber || 'blue';
-        this.set('lightsaber', lightsaber);
+        this._lightsaber = options.lightsaber || 'blue';
       }
 
-      set(key, val) {
-        this[key] = val;
+      set lightsaber(val) {
+        this._lightsaber = val;
       }
 
-      get(key) {
-        return this[key];
+      get lightsaber {
+        return this._lightsaber;
       }
     }
+
+    const anakinSkywalker = new Jedi({ lightsaber: 'blue' });
+    
+    episodeThree.run()
+      .then(() => anakinSkywalker.lightsaber = 'red');
     ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -2599,5 +2574,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## Amendments
 
 We encourage you to fork this guide and change the rules to fit your team's style guide. Below, you may list some amendments to the style guide. This allows you to periodically update your style guide without having to deal with merge conflicts.
+
+- [17.3](#17.3) Encouraged prefixing `TODO`/`FIXME` with `@`
+- [21.3](#21.3) Encouraged `parseInt()` over `Number()`
+- [21.6](#21.6) Encouraged double negation (`!!`) over `Boolean()`
+- [22.6](#22.6) Encouraged underscored file names
+- [23](#23) Encouraged use of ES6 getters/setters
 
 # };
