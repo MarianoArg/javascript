@@ -2579,6 +2579,6 @@ We encourage you to fork this guide and change the rules to fit your team's styl
 - [21.3](#21.3) Encouraged `parseInt()` over `Number()`
 - [21.6](#21.6) Encouraged double negation (`!!`) over `Boolean()`
 - [22.6](#22.6) Encouraged underscored file names
-- [23](#23) Encouraged use of ES6 getters/setters
+- [23.2](#23.2) Encouraged use of ES6 getters/setters
 
 # };
