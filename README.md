@@ -2178,7 +2178,7 @@
 
   - [23.1](#23.1) <a name='23.1'></a> Accessor functions for properties are not required.
 
-  - [23.2](#23.2) <a name='23.4'></a> Use ES6 Getters and Setters when necessary.
+  - [23.2](#23.2) <a name='23.2'></a> Use ES6 Getters and Setters when necessary.
 
     ```javascript
     class Jedi {
